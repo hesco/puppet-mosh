@@ -4,11 +4,15 @@ class mosh {
   $repokey = '7BF6DFCD'
   $keyserver = 'keyserver.ubuntu.com'
   $repository = "deb http://ppa.launchpad.net/keithw/mosh/ubuntu ${lsbdistcodename} main\n"
+  $epelrepoget = "http://ftp.wa.co.za/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
+  $epelkey = ""
 
   package { $package:
     ensure => installed,
   }
 
+case $::operatingsystem {
+  'ubuntu': {
   if ($repository and $::operatingsystem == 'Ubuntu') {
     # friendly unique titles
     $_repokey = "get ${repokey} from ${keyserver}"
@@ -21,6 +25,24 @@ class mosh {
       unless  => "apt-key list | grep '${repokey}'",
       command => "apt-key adv --keyserver ${keyserver} --recv-keys ${repokey}",
     }
+           }
+
+  'redhat': {}
+  # need to get/enable EPEL repo
+      package { 'epel-release-6-8.noarch.rpm':
+        ensure => present,
+      }
+      file { '/etc/yum.repos.d/epel.repo':
+        owner => 'root',
+        group => 'root',
+        mode  =:
+      $epelkey = ""
+      $_repokey = "get ${repokey} from ${keyserver}"
+      $_update  = "apt-get update for ${reponame}"
+      $_source  = "/etc/yum.repos.d/epel.repo"
+
+}
+
 
     # add the source
     file { $_source:
