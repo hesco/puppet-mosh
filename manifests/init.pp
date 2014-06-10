@@ -29,13 +29,17 @@ case $::operatingsystem {
 
   'redhat': {}
   # need to get/enable EPEL repo
-      package { 'epel-release-6-8.noarch.rpm':
+  # puppet module install stahnma-epel
+      package { 'epel-release':
         ensure => present,
       }
       file { '/etc/yum.repos.d/epel.repo':
         owner => 'root',
         group => 'root',
-        mode  =:
+        mode  => '0644',
+        source => 'puppet:///modules/mosh/epel.repo',
+        }
+        
       $epelkey = ""
       $_repokey = "get ${repokey} from ${keyserver}"
       $_update  = "apt-get update for ${reponame}"
