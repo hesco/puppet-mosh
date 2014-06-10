@@ -4,8 +4,11 @@
  - http://github.com/garthk/puppet-mosh mosh
  - https://github.com/zerlgi/puppet-mosh
  - Requires: 
-   - puppet module stahnma-epel
-   - https://github.com/stahnma/puppet-module-epel
+   - zerlgi/puppet-module-epel
+   - https://github.com/zerlgi/puppet-module-epel
+   - which is fork of:
+     - puppet module stahnma-epel
+     - https://github.com/stahnma/puppet-module-epel
 
 ## Installation
 
