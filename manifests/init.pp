@@ -4,7 +4,6 @@ class mosh {
   case $::operatingsystem {
     'ubuntu': {
       package { $package:
-         ensure => installed,
          ensure => present,
          }
      }
