@@ -25,4 +25,7 @@ class mosh {
         }
      }
   }
+
+  include mosh::iptables
+
 }
