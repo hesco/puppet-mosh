@@ -1,4 +1,9 @@
-class mosh {
+class mosh (
+
+    $port_range = $mosh::params::port_range
+
+  ) inherits mosh::params {
+
   $package = 'mosh'
  
   case $::operatingsystem {
