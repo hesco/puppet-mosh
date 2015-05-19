@@ -3,8 +3,10 @@ class mosh::iptables {
 
   $port_range = '60000:60005'
   if defined('firewall') {
-    notify { 'need-to-implement':
-      message => 'Still need to implement use of puppetlabs-firewall for mosh',
+    firewall { '101 - Allow mosh':
+      port   => '60000-61000',
+      proto  => udp,
+      action => accept,
     }
   } else {
     exec { 'iptables-accept-mosh-udp':
