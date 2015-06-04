@@ -13,7 +13,6 @@ class mosh {
        # to get/enable EPEL repo
        # puppet module install stahnma-epel / zerlgi-epel
        package { $package:
-         ensure => installed,
          ensure => present,
          require => Package['epel-release'],
         }
