@@ -9,12 +9,12 @@ class mosh {
     }
   
     'redhat': {
-       include epel
+       class { 'epel': }
        # to get/enable EPEL repo
        # puppet module install stahnma-epel / zerlgi-epel
        package { $package:
          ensure => present,
-         require => Package['epel-release'],
+         require => Class['epel'],
         }
      }
   }
