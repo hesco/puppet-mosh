@@ -1,13 +1,7 @@
 class mosh {
   $package = 'mosh'
  
-  case $::operatingsystem {
-    'ubuntu': {
-      package { $package:
-         ensure => present,
-         }
-     }
-  
+  case $::osfamily {
     'debian': {
       package { $package:
         ensure => present,
