@@ -1,6 +1,7 @@
 class mosh (
 
-    $port_range = $mosh::params::port_range
+    $port_range = $mosh::params::port_range,
+    $manage_firewall = $mosh::params::manage_firewall,
 
   ) inherits mosh::params {
 
