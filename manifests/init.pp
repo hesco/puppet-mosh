@@ -7,13 +7,7 @@ class mosh (
 
   $package = 'mosh'
  
-  case $::operatingsystem {
-    'ubuntu': {
-      package { $package:
-         ensure => present,
-         }
-     }
-  
+  case $::osfamily {
     'debian': {
       package { $package:
         ensure => present,
@@ -21,15 +15,19 @@ class mosh (
     }
   
     'redhat': {
-       include epel
-       # to get/enable EPEL repo
-       # puppet module install stahnma-epel / zerlgi-epel
-       package { $package:
-         ensure => installed,
-         ensure => present,
-         require => Package['epel-release'],
-        }
-     }
+      # It's likely that another module already includes the epel module.
+      # We only include it if it's not already defined to prevent 
+      # duplicate declarations.
+      if !defined(Class['::epel']) {
+        class { 'epel': }
+      }
+      # to get/enable EPEL repo
+      # puppet module install stahnma-epel / zerlgi-epel
+      package { $package:
+        ensure => present,
+        require => Class['epel'],
+      }
+    }
   }
 
   include mosh::iptables
